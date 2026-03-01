@@ -19,17 +19,17 @@
 
 ## Descripción General
 
-**MRCA (Moodle Risk & Compliance Analyzer)** es un plugin local de Moodle que realiza auditorías automatizadas de seguridad, privacidad y cumplimiento de tu instalación de Moodle. Escanea los plugins de terceros instalados en múltiples dimensiones de riesgo y produce un **Índice de Riesgo del Sitio (0–100)** unificado.
+**MRCA (Risk & Compliance Analyzer for Moodle™)** es un plugin local de Moodle que realiza auditorías automatizadas de seguridad, privacidad y cumplimiento de tu instalación de Moodle. Escanea los plugins de terceros instalados en múltiples dimensiones de riesgo y produce un **Índice de Riesgo del Sitio (0–100)** unificado.
 
-Por defecto, MRCA solo escanea **plugins de terceros**. Los módulos estándar de Moodle (mantenidos por Moodle HQ) se excluyen para evitar falsos positivos.
+Por defecto, MRCA solo escanea **plugins de terceros**. Los módulos estándar de Moodle™ (mantenidos por Moodle HQ) se excluyen para evitar falsos positivos.
 
 ---
 
 ## ¿Por qué MRCA?
 
-Moodle es el LMS más adoptado del mundo, utilizado por más de 300 millones de usuarios en más de 240 países. En la **Unión Europea**, donde el **RGPD (Reglamento General de Protección de Datos)** es plenamente aplicable desde mayo de 2018, las instituciones educativas enfrentan obligaciones estrictas respecto al tratamiento de datos personales — incluyendo expedientes de estudiantes, calificaciones, asistencia y comunicaciones.
+Moodle™ es el LMS más adoptado del mundo, utilizado por más de 300 millones de usuarios en más de 240 países. En la **Unión Europea**, donde el **RGPD (Reglamento General de Protección de Datos)** es plenamente aplicable desde mayo de 2018, las instituciones educativas enfrentan obligaciones estrictas respecto al tratamiento de datos personales — incluyendo expedientes de estudiantes, calificaciones, asistencia y comunicaciones.
 
-Sin embargo, Moodle **no proporciona ningún mecanismo nativo** para auditar los plugins instalados en cuanto a:
+Sin embargo, Moodle™ **no proporciona ningún mecanismo nativo** para auditar los plugins instalados en cuanto a:
 
 - **Cumplimiento de privacidad** — ¿Declara el plugin qué datos personales almacena?
 - **Riesgos de seguridad** — ¿Usa funciones PHP inseguras o APIs deprecadas?
@@ -320,7 +320,7 @@ Si [Integration Hub for Moodle™](https://github.com/x-name15/moodle-local_inte
 
 ## Privacidad y RGPD
 
-MRCA implementa la **Privacy API de Moodle** (`\core_privacy\local\metadata\provider`):
+MRCA implementa la **Privacy API de Moodle™** (`\core_privacy\local\metadata\provider`):
 
 - **Datos almacenados:** Solo el `userid` de administradores que añaden campos a la lista blanca (tabla `local_mrca_whitelist`).
 - **Exportación:** Las entradas de lista blanca se exportan vía las herramientas de privacidad de Moodle.
