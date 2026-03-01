@@ -19,17 +19,17 @@
 
 ## Overview
 
-**MRCA (Moodle Risk & Compliance Analyzer)** is a local Moodle plugin that performs automated security, privacy, and compliance audits of your Moodle installation. It scans installed third-party plugins across multiple risk dimensions and produces a unified **Site Risk Index (0–100)**.
+**MRCA (Risk & Compliance Analyzer for Moodle™)** is a local Moodle™ plugin that performs automated security, privacy, and compliance audits of your Moodle™ installation. It scans installed third-party plugins across multiple risk dimensions and produces a unified **Site Risk Index (0–100)**.
 
-By default, MRCA only scans **third-party plugins**. Standard Moodle modules (maintained by Moodle HQ) are excluded to avoid false positives.
+By default, MRCA only scans **third-party plugins**. Standard Moodle™ modules (maintained by Moodle HQ) are excluded to avoid false positives.
 
 ---
 
 ## Why MRCA?
 
-Moodle is the most widely adopted LMS in the world, used by over 300 million users across 240+ countries. In the **European Union**, where **GDPR (General Data Protection Regulation)** has been fully enforceable since May 2018, educational institutions face strict obligations regarding the processing of personal data — including student records, grades, attendance, and communication logs.
+Moodle™ is the most widely adopted LMS in the world, used by over 300 million users across 240+ countries. In the **European Union**, where **GDPR (General Data Protection Regulation)** has been fully enforceable since May 2018, educational institutions face strict obligations regarding the processing of personal data — including student records, grades, attendance, and communication logs.
 
-Despite this, Moodle provides **no built-in mechanism** to audit installed plugins for:
+Despite this, Moodle™ provides **no built-in mechanism** to audit installed plugins for:
 
 - **Privacy compliance** — Does the plugin declare what personal data it stores?
 - **Security risks** — Does it use unsafe PHP functions or deprecated APIs?
@@ -310,7 +310,7 @@ If [Integration Hub for Moodle™](https://github.com/x-name15/moodle-local_inte
 
 ## Privacy & GDPR
 
-MRCA implements the **Moodle Privacy API** (`\core_privacy\local\metadata\provider`):
+MRCA implements the **Moodle™ Privacy API** (`\core_privacy\local\metadata\provider`):
 
 - **Data stored:** Only the `userid` of administrators who whitelist fields (`local_mrca_whitelist` table).
 - **Export:** Whitelist entries are exported via Moodle's privacy tools.
