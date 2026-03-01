@@ -1,4 +1,4 @@
-<h1><img src="pix/icon.svg" width="40" height="40"> Moodle Risk & Compliance Analyzer</h1>
+<h1><img src="pix/icon.svg" width="40" height="40"> Risk & Compliance Analyzer for Moodle™</h1>
 
 [![Moodle](https://img.shields.io/badge/Moodle-4.1%2B-orange)](https://moodle.org)
 [![PHP](https://img.shields.io/badge/PHP-8.0%2B-blue)](https://php.net)
@@ -6,13 +6,13 @@
 
 ## Overview
 
-MRCA is a multi-layered risk analysis engine for Moodle. It scans installed plugins for security risks, privacy compliance gaps, outdated dependencies, and permission misconfigurations — providing administrators with a unified **Site Risk Index** and actionable alerts.
+MRCA is a multi-layered risk analysis engine for Moodle™. It scans installed plugins for security risks, privacy compliance gaps, outdated dependencies, and permission misconfigurations — providing administrators with a unified **Site Risk Index** and actionable alerts.
 
 By default, MRCA only scans **third-party plugins**. Core Moodle modules are excluded to avoid false positives.
 
 ## Why MRCA?
 
-Moodle is the most widely adopted LMS in the world, with strong presence in **European universities and institutions** where **GDPR (General Data Protection Regulation)** compliance is mandatory. Yet there is no built-in mechanism to audit installed plugins for privacy risks, deprecated code, or permission misconfigurations.
+Moodle™ is the most widely adopted LMS in the world, with strong presence in **European universities and institutions** where **GDPR (General Data Protection Regulation)** compliance is mandatory. Yet there is no built-in mechanism to audit installed plugins for privacy risks, deprecated code, or permission misconfigurations.
 
 MRCA was built to fill this gap — giving administrators a **proactive compliance tool** instead of relying on reactive audits.
 
