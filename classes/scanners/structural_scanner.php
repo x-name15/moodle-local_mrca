@@ -62,33 +62,33 @@ class structural_scanner {
 
     /** @var array Known deprecated Moodle functions to detect. */
     private const DEPRECATED_FUNCTIONS = [
-        'print_object' => 'Use debugging() or var_dump for debugging.',
-        'print_header' => 'Replaced by $OUTPUT->header().',
-        'print_footer' => 'Replaced by $OUTPUT->footer().',
-        'print_heading' => 'Replaced by $OUTPUT->heading().',
-        'print_table' => 'Replaced by html_writer::table().',
-        'print_simple_box' => 'Deprecated UI function.',
-        'choose_from_menu' => 'Replaced by html_writer::select().',
-        'helpbutton' => 'Replaced by $OUTPUT->help_icon().',
-        'print_recent_activity_note' => 'Deprecated activity function.',
-        'get_context_instance' => 'Use context_*::instance() instead.',
-        'add_to_log' => 'Replaced by Events API (\\core\\event).',
-        'events_trigger' => 'Replaced by Events 2 API.',
-        'print_error' => 'Use throw new moodle_exception() instead.',
+        'print_object' => 'dep_func_print_object',
+        'print_header' => 'dep_func_print_header',
+        'print_footer' => 'dep_func_print_footer',
+        'print_heading' => 'dep_func_print_heading',
+        'print_table' => 'dep_func_print_table',
+        'print_simple_box' => 'dep_func_print_simple_box',
+        'choose_from_menu' => 'dep_func_choose_from_menu',
+        'helpbutton' => 'dep_func_helpbutton',
+        'print_recent_activity_note' => 'dep_func_print_recent_activity_note',
+        'get_context_instance' => 'dep_func_get_context_instance',
+        'add_to_log' => 'dep_func_add_to_log',
+        'events_trigger' => 'dep_func_events_trigger',
+        'print_error' => 'dep_func_print_error',
     ];
 
     /** @var array PHP functions that should not be used in Moodle plugins. */
     private const UNSAFE_PHP_FUNCTIONS = [
-        'eval' => 'Arbitrary code execution risk.',
-        'exec' => 'System command execution.',
-        'shell_exec' => 'System command execution.',
-        'passthru' => 'System command execution.',
-        'popen' => 'Process execution.',
-        'proc_open' => 'Process execution.',
-        'dl' => 'Dynamic extension loading.',
-        'mysql_query' => 'Deprecated MySQL extension. Use $DB API.',
-        'mysql_connect' => 'Deprecated MySQL extension. Use $DB API.',
-        'mysqli_query' => 'Direct DB access. Use Moodle $DB API.',
+        'eval' => 'unsafe_func_eval',
+        'exec' => 'unsafe_func_exec',
+        'shell_exec' => 'unsafe_func_shell_exec',
+        'passthru' => 'unsafe_func_passthru',
+        'popen' => 'unsafe_func_popen',
+        'proc_open' => 'unsafe_func_proc_open',
+        'dl' => 'unsafe_func_dl',
+        'mysql_query' => 'unsafe_func_mysql_query',
+        'mysql_connect' => 'unsafe_func_mysql_connect',
+        'mysqli_query' => 'unsafe_func_mysqli_query',
     ];
 
     /**
@@ -228,15 +228,23 @@ class structural_scanner {
      */
     private function scan_content(string $content, string $relative, array &$findings): int {
         $score = 0;
-        foreach (self::DEPRECATED_FUNCTIONS as $func => $reason) {
+        foreach (self::DEPRECATED_FUNCTIONS as $func => $stringkey) {
             if ($this->contains_function_call($content, $func)) {
-                $findings['deprecated_calls'][] = ['file' => $relative, 'function' => $func, 'reason' => $reason];
+                $findings['deprecated_calls'][] = [
+                    'file' => $relative,
+                    'function' => $func,
+                    'reason' => get_string($stringkey, 'local_mrca'),
+                ];
                 $score += self::SCORE_DEPRECATED_CALL;
             }
         }
-        foreach (self::UNSAFE_PHP_FUNCTIONS as $func => $reason) {
+        foreach (self::UNSAFE_PHP_FUNCTIONS as $func => $stringkey) {
             if ($this->contains_function_call($content, $func)) {
-                $findings['unsafe_calls'][] = ['file' => $relative, 'function' => $func, 'reason' => $reason];
+                $findings['unsafe_calls'][] = [
+                    'file' => $relative,
+                    'function' => $func,
+                    'reason' => get_string($stringkey, 'local_mrca'),
+                ];
                 $score += self::SCORE_DEPRECATED_CALL;
             }
         }

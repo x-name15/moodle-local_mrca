@@ -30,11 +30,11 @@
  * @return bool Always returns true.
  */
 function xmldb_local_mrca_upgrade($oldversion) {
-    global $DB; // Moodle pide que esté aquí aunque no se use en este bloque.
+    global $DB; // Required by Moodle, even if not used in this block.
 
     if ($oldversion < 2026022400) {
         // MRCA Golden Release 1.1.5 upgrade step.
-        // Aquí podrías poner lógica de base de datos, pero el savepoint es OBLIGATORIO.
+        // Database schema logic can be placed here, but the savepoint is MANDATORY.
         upgrade_plugin_savepoint(true, 2026022400, 'local', 'mrca');
     }
 

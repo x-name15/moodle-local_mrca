@@ -421,11 +421,19 @@ class dashboard implements renderable, templatable {
     private function add_role_heatmap(array $data, $db, \stdClass $scan): array {
         $rolerisks = $db->get_records('local_mrca_role_risks', ['scanid' => $scan->id], 'risk_score DESC');
 
+        // Preload all roles to avoid N+1 query problem.
+        $roleids = array_column($rolerisks, 'roleid');
+        $roles = [];
+        if (!empty($roleids)) {
+            list($insql, $inparams) = $db->get_in_or_equal($roleids, SQL_PARAMS_NAMED);
+            $roles = $db->get_records_select('role', "id $insql", $inparams, '', 'id,shortname');
+        }
+
         foreach ($rolerisks as $rr) {
-            $role = $db->get_record('role', ['id' => $rr->roleid]);
-            if (!$role) {
+            if (!isset($roles[$rr->roleid])) {
                 continue;
             }
+            $role = $roles[$rr->roleid];
 
             $heatmapclass = 'success';
             $emoji = '🟢';

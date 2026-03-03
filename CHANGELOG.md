@@ -1,5 +1,23 @@
 # Changelog
 
+## [2.0.0] - 2026-03-03
+### The Post Revision Update
+
+### Fixed
+- **Hard-coded Language Strings:** Replaced all hard-coded user-facing text with proper `get_string()` calls for full internationalization support. Added 27 new language strings for CSV report headers, deprecated function descriptions, and unsafe function warnings across all supported languages (en, es, fr, it, pt).
+- **Non-English Comments:** Translated all Spanish comments in `db/upgrade.php` to English for international collaboration compliance.
+- **Database Performance (N+1 Queries):** Optimized `dashboard.php` role heatmap generation by preloading all roles in a single bulk query using `get_in_or_equal()`, eliminating N+1 query problem in role risk display.
+- **Third-Party Library Documentation:** Created `thirdpartylibs.xml` to properly document Chart.js v4.5.1 (MIT License) as required by Moodle plugin guidelines.
+
+### Changed
+- **Plugin Name:** Rebranded from "Moodle Risk & Compliance Analyzer" to "Risk & Compliance Analyzer for Moodle" across all language files and CLI scripts for better naming consistency.
+- **CSV Report Generation:** All CSV headers and labels now use language strings from `get_string()` instead of hard-coded English text, enabling proper translation.
+- **Deprecated Functions Detection:** Refactored `structural_scanner.php` to store language string keys instead of hard-coded messages, with runtime translation via `get_string()`.
+
+### Added
+- **Language Strings:** Added 27 new translatable strings for deprecated Moodle functions (`dep_func_*`) and unsafe PHP functions (`unsafe_func_*`) across all 5 supported languages (en, es, fr, it, pt).
+
+
 ## [1.5.0] - 2026-02-26
 
 ### Patch & Chill Update

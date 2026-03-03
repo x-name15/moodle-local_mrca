@@ -158,7 +158,7 @@ define(
                 // ===== PII FIELD TOGGLE =====
                 $(document).on('click', '.mrca-toggle-pii', function (e) {
                     e.preventDefault();
-                    var target = $($(this).data('target'));
+                    var target = $($(this).data('bs-target') || $(this).data('target'));
                     target.toggle();
                     // Toggle icon.
                     var icon = $(this).find('i');

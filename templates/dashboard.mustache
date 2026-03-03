@@ -83,34 +83,34 @@
     {{! ===== TAB NAVIGATION ===== }}
     <ul class="nav nav-tabs mb-3" id="mrca-tabs" role="tablist">
         <li class="nav-item">
-            <a class="nav-link active" id="mrca-tab-overview" data-toggle="tab" href="#mrca-pane-overview" role="tab">
+            <a class="nav-link active" id="mrca-tab-overview" data-bs-toggle="tab" href="#mrca-pane-overview" role="tab">
                 <i class="fa fa-tachometer"></i> {{#str}}dashboard_title, local_mrca{{/str}}
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="mrca-tab-deps" data-toggle="tab" href="#mrca-pane-deps" role="tab">
+            <a class="nav-link" id="mrca-tab-deps" data-bs-toggle="tab" href="#mrca-pane-deps" role="tab">
                 <i class="fa fa-cubes"></i> {{#str}}dependency_audit, local_mrca{{/str}}
                 {{#has_dep_audit}}<span class="badge badge-warning ml-1">!</span>{{/has_dep_audit}}
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="mrca-tab-perms" data-toggle="tab" href="#mrca-pane-perms" role="tab">
+            <a class="nav-link" id="mrca-tab-perms" data-bs-toggle="tab" href="#mrca-pane-perms" role="tab">
                 <i class="fa fa-th"></i> {{#str}}role_heatmap, local_mrca{{/str}}
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="mrca-tab-alerts" data-toggle="tab" href="#mrca-pane-alerts" role="tab">
+            <a class="nav-link" id="mrca-tab-alerts" data-bs-toggle="tab" href="#mrca-pane-alerts" role="tab">
                 <i class="fa fa-exclamation-triangle"></i> {{#str}}alerts, local_mrca{{/str}}
                 {{#has_alerts}}<span class="badge badge-danger ml-1">!</span>{{/has_alerts}}
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="mrca-tab-plugins" data-toggle="tab" href="#mrca-pane-plugins" role="tab">
+            <a class="nav-link" id="mrca-tab-plugins" data-bs-toggle="tab" href="#mrca-pane-plugins" role="tab">
                 <i class="fa fa-puzzle-piece"></i> {{#str}}plugin_risk_details, local_mrca{{/str}}
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="mrca-tab-whitelist" data-toggle="tab" href="#mrca-pane-whitelist" role="tab">
+            <a class="nav-link" id="mrca-tab-whitelist" data-bs-toggle="tab" href="#mrca-pane-whitelist" role="tab">
                 <i class="fa fa-list"></i> {{#str}}whitelist, local_mrca{{/str}}
             </a>
         </li>
@@ -378,7 +378,7 @@
                                     <td>
                                         <code>{{plugin}}</code>
                                         {{#has_pii_fields}}
-                                        <button class="btn btn-link btn-sm p-0 ml-1 mrca-toggle-pii" data-target="#pii-{{id}}" title="{{#str}}detected_pii_fields, local_mrca{{/str}}">
+                                        <button class="btn btn-link btn-sm p-0 ml-1 mrca-toggle-pii" data-bs-target="#pii-{{id}}" title="{{#str}}detected_pii_fields, local_mrca{{/str}}">
                                             <i class="fa fa-database text-warning"></i>
                                         </button>
                                         {{/has_pii_fields}}

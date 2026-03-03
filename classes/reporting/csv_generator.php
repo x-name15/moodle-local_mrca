@@ -54,16 +54,21 @@ class csv_generator {
         $output = fopen('php://output', 'w');
 
         // Info header.
-        fputcsv($output, ['MRCA Scan Report']);
-        fputcsv($output, ['Scan Date', userdate($scan->timecreated)]);
-        fputcsv($output, ['Total Score', $scan->total_score]);
-        fputcsv($output, ['Site Risk Index', round($scan->site_risk_index, 1) . '/100']);
-        fputcsv($output, ['Plugins Scanned', $scan->plugins_scanned]);
-        fputcsv($output, ['Roles Scanned', $scan->roles_scanned]);
+        fputcsv($output, [get_string('csv_header_report_title', 'local_mrca')]);
+        fputcsv($output, [get_string('csv_label_scan_date', 'local_mrca'), userdate($scan->timecreated)]);
+        fputcsv($output, [get_string('csv_label_total_score', 'local_mrca'), $scan->total_score]);
+        fputcsv($output, [get_string('csv_label_site_risk_index', 'local_mrca'), round($scan->site_risk_index, 1) . '/100']);
+        fputcsv($output, [get_string('csv_label_plugins_scanned', 'local_mrca'), $scan->plugins_scanned]);
+        fputcsv($output, [get_string('csv_label_roles_scanned', 'local_mrca'), $scan->roles_scanned]);
         fputcsv($output, []);
 
         // Results.
-        fputcsv($output, ['Plugin', 'Risk Score', 'Risk Level', 'Privacy API']);
+        fputcsv($output, [
+            get_string('csv_header_plugin', 'local_mrca'),
+            get_string('csv_header_risk_score', 'local_mrca'),
+            get_string('csv_header_risk_level', 'local_mrca'),
+            get_string('csv_header_privacy_api', 'local_mrca'),
+        ]);
 
         foreach ($results as $result) {
             $level = $engine->get_risk_level($result->risk_score);
@@ -71,7 +76,9 @@ class csv_generator {
                 $result->plugin,
                 $result->risk_score,
                 ucfirst($level),
-                $result->has_privacy_provider ? 'Yes' : 'No',
+                $result->has_privacy_provider ?
+                    get_string('csv_label_yes', 'local_mrca') :
+                    get_string('csv_label_no', 'local_mrca'),
             ]);
         }
 

@@ -31,7 +31,7 @@ require_once($CFG->libdir . '/clilib.php');
 [$options, $unrecognised] = cli_get_params(['help' => false], ['h' => 'help']);
 
 if ($options['help']) {
-    echo "MRCA — Moodle Risk & Compliance Analyzer CLI Scan
+    echo "MRCA — Risk & Compliance Analyzer for Moodle CLI Scan
 
 Usage:
     php run_scan_cli.php [--help]
@@ -48,7 +48,7 @@ Description:
 }
 
 mtrace("===================================================");
-mtrace(" MRCA — Moodle Risk & Compliance Analyzer");
+mtrace(" MRCA — Risk & Compliance Analyzer for Moodle");
 mtrace(" Starting CLI Scan...");
 mtrace("===================================================");
 
