@@ -6,6 +6,7 @@
 ### Fixed
 - **Dashboard Tab Navigation:** Fixed tabbed navigation in dashboard not switching between sections (Overview, Dependency Audit, Role Heatmap, etc.). Replaced Bootstrap 5 attributes (`data-bs-toggle`, `data-bs-target`) with Bootstrap 4 syntax (`data-toggle`, `data-target`) to match Moodle's Bootstrap version.
 - **Self-Scanning Exclusion:** The plugin now explicitly excludes itself (`local_mrca`) from risk scans to avoid the ironic situation of the risk auditor flagging itself as "Critical" risk. The scanner now skips self-analysis before processing other plugins.
+- **Mustache Template Documentation:** Added `@template` section with example context JSON to `dashboard.mustache` to eliminate CI warning about missing template documentation.
 - **Hard-coded Language Strings:** Replaced all hard-coded user-facing text with proper `get_string()` calls for full internationalization support. Added 27 new language strings for CSV report headers, deprecated function descriptions, and unsafe function warnings across all supported languages (en, es, fr, it, pt).
 - **Non-English Comments:** Translated all Spanish comments in `db/upgrade.php` to English for international collaboration compliance.
 - **Database Performance (N+1 Queries):** Optimized `dashboard.php` role heatmap generation by preloading all roles in a single bulk query using `get_in_or_equal()`, eliminating N+1 query problem in role risk display.

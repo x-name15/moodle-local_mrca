@@ -4,6 +4,50 @@
     All chart rendering, pagination, and AJAX is handled by the AMD module
     local_mrca/dashboard (initialized from index.php).
 
+    @template   local_mrca/dashboard
+
+    Example context (json):
+    {
+        "has_scans": true,
+        "site_risk_index": 45.5,
+        "site_risk_badge": "warning",
+        "site_risk_label": "Medium",
+        "total_score": 450,
+        "plugins_scanned": 25,
+        "roles_scanned": 8,
+        "scan_date": "3 March 2026",
+        "scanid": 42,
+        "has_trend": true,
+        "plugin_risks": [
+            {
+                "id": 123,
+                "plugin": "mod_forum",
+                "risk_score": 45,
+                "risk_level": "Medium",
+                "badge_class": "warning",
+                "privacy_score": 15,
+                "dependency_score": 20,
+                "capability_score": 10,
+                "has_privacy_provider": true,
+                "has_pii_fields": true,
+                "pii_count": 2,
+                "pii_count_plural": true,
+                "pii_fields": [
+                    {
+                        "component": "mod_forum",
+                        "table": "forum_posts",
+                        "field": "email"
+                    }
+                ]
+            }
+        ],
+        "has_dep_audit": true,
+        "has_heatmap": true,
+        "has_alerts": true,
+        "sesskey": "abc123",
+        "scan_url": "/local/mrca/index.php"
+    }
+
     @package    local_mrca
     @copyright  2026 Mr Jacket
     @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
