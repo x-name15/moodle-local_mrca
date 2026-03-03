@@ -235,7 +235,10 @@ define(
                             completed++;
                             if (completed === total) {
                                 setTimeout(function() {
-                                    $row.fadeOut(500);
+                                    $row.fadeOut(500, function() {
+                                        // Reload page to refresh risk scores after whitelisting.
+                                        window.location.reload();
+                                    });
                                 }, 600);
                             }
                         });
@@ -256,6 +259,10 @@ define(
                         if (data.success) {
                             btn.closest('.d-flex').fadeOut(300, function() {
                                 $(this).remove();
+                                // Reload page to refresh plugin risk details with newly un-whitelisted fields.
+                                setTimeout(function() {
+                                    window.location.reload();
+                                }, 500);
                             });
                         }
                     }).fail(function(xhr) {

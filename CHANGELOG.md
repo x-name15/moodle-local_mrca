@@ -18,7 +18,7 @@
   - Individual whitelist buttons now use check-circle icon and green color for better visibility
   - Improved tooltips with clearer action descriptions
   - Better visual hierarchy with styled field badges and spacing
-  - Expanded PII section shows field count and bulk actions prominently
+  - Expanded PII section shows field count and bulk actions prominently  - **Automatic page reload** after removing fields from whitelist or using "Whitelist All" to ensure risk scores and field visibility are updated immediately (no manual cache purge needed)
 
 ### Changed
 - **Plugin Name:** Rebranded from "Moodle Risk & Compliance Analyzer" to "Risk & Compliance Analyzer for Moodle" across all language files and CLI scripts for better naming consistency.
