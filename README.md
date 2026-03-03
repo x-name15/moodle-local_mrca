@@ -8,7 +8,7 @@
 
 MRCA is a multi-layered risk analysis engine for Moodle™. It scans installed plugins for security risks, privacy compliance gaps, outdated dependencies, and permission misconfigurations — providing administrators with a unified **Site Risk Index** and actionable alerts.
 
-By default, MRCA only scans **third-party plugins**. Core Moodle modules are excluded to avoid false positives.
+By default, MRCA only scans **third-party plugins**. Core Moodle modules and the MRCA plugin itself are excluded to avoid false positives and self-flagging.
 
 ## Why MRCA?
 

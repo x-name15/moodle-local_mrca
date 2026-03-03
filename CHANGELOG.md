@@ -4,10 +4,21 @@
 ### The Post Revision Update
 
 ### Fixed
+- **Dashboard Tab Navigation:** Fixed tabbed navigation in dashboard not switching between sections (Overview, Dependency Audit, Role Heatmap, etc.). Replaced Bootstrap 5 attributes (`data-bs-toggle`, `data-bs-target`) with Bootstrap 4 syntax (`data-toggle`, `data-target`) to match Moodle's Bootstrap version.
+- **Self-Scanning Exclusion:** The plugin now explicitly excludes itself (`local_mrca`) from risk scans to avoid the ironic situation of the risk auditor flagging itself as "Critical" risk. The scanner now skips self-analysis before processing other plugins.
 - **Hard-coded Language Strings:** Replaced all hard-coded user-facing text with proper `get_string()` calls for full internationalization support. Added 27 new language strings for CSV report headers, deprecated function descriptions, and unsafe function warnings across all supported languages (en, es, fr, it, pt).
 - **Non-English Comments:** Translated all Spanish comments in `db/upgrade.php` to English for international collaboration compliance.
 - **Database Performance (N+1 Queries):** Optimized `dashboard.php` role heatmap generation by preloading all roles in a single bulk query using `get_in_or_equal()`, eliminating N+1 query problem in role risk display.
 - **Third-Party Library Documentation:** Created `thirdpartylibs.xml` to properly document Chart.js v4.5.1 (MIT License) as required by Moodle plugin guidelines.
+
+### Improved
+- **Whitelist UX:** Improved the user experience for whitelisting PII fields:
+  - Added visual badge showing number of detected PII fields next to database icon
+  - New "Whitelist All X Fields" button to mark all fields as safe at once
+  - Individual whitelist buttons now use check-circle icon and green color for better visibility
+  - Improved tooltips with clearer action descriptions
+  - Better visual hierarchy with styled field badges and spacing
+  - Expanded PII section shows field count and bulk actions prominently
 
 ### Changed
 - **Plugin Name:** Rebranded from "Moodle Risk & Compliance Analyzer" to "Risk & Compliance Analyzer for Moodle" across all language files and CLI scripts for better naming consistency.

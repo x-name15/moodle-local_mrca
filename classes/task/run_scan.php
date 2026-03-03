@@ -144,6 +144,11 @@ class run_scan extends scheduled_task {
             foreach ($pluginsbytype as $pluginname => $plugininfo) {
                 $component = $plugininfo->component;
 
+                // Skip self-scanning to avoid the irony of the risk auditor flagging itself.
+                if ($component === 'local_mrca') {
+                    continue;
+                }
+
                 // Skip core (standard) Moodle plugins unless explicitly enabled.
                 if (!$scancore && core_plugin_helper::is_core_plugin($component)) {
                     $coreskipped++;

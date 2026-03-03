@@ -230,6 +230,8 @@ class dashboard implements renderable, templatable {
                 'capability_score' => $mr->capability_score ?? 0,
                 'pii_fields' => $piifields,
                 'has_pii_fields' => !empty($piifields),
+                'pii_count' => count($piifields),
+                'pii_count_plural' => count($piifields) !== 1,
             ];
         }
 
@@ -425,7 +427,7 @@ class dashboard implements renderable, templatable {
         $roleids = array_column($rolerisks, 'roleid');
         $roles = [];
         if (!empty($roleids)) {
-            list($insql, $inparams) = $db->get_in_or_equal($roleids, SQL_PARAMS_NAMED);
+            [$insql, $inparams] = $db->get_in_or_equal($roleids, SQL_PARAMS_NAMED);
             $roles = $db->get_records_select('role', "id $insql", $inparams, '', 'id,shortname');
         }
 

@@ -83,34 +83,34 @@
     {{! ===== TAB NAVIGATION ===== }}
     <ul class="nav nav-tabs mb-3" id="mrca-tabs" role="tablist">
         <li class="nav-item">
-            <a class="nav-link active" id="mrca-tab-overview" data-bs-toggle="tab" href="#mrca-pane-overview" role="tab">
+            <a class="nav-link active" id="mrca-tab-overview" data-toggle="tab" href="#mrca-pane-overview" role="tab">
                 <i class="fa fa-tachometer"></i> {{#str}}dashboard_title, local_mrca{{/str}}
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="mrca-tab-deps" data-bs-toggle="tab" href="#mrca-pane-deps" role="tab">
+            <a class="nav-link" id="mrca-tab-deps" data-toggle="tab" href="#mrca-pane-deps" role="tab">
                 <i class="fa fa-cubes"></i> {{#str}}dependency_audit, local_mrca{{/str}}
                 {{#has_dep_audit}}<span class="badge badge-warning ml-1">!</span>{{/has_dep_audit}}
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="mrca-tab-perms" data-bs-toggle="tab" href="#mrca-pane-perms" role="tab">
+            <a class="nav-link" id="mrca-tab-perms" data-toggle="tab" href="#mrca-pane-perms" role="tab">
                 <i class="fa fa-th"></i> {{#str}}role_heatmap, local_mrca{{/str}}
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="mrca-tab-alerts" data-bs-toggle="tab" href="#mrca-pane-alerts" role="tab">
+            <a class="nav-link" id="mrca-tab-alerts" data-toggle="tab" href="#mrca-pane-alerts" role="tab">
                 <i class="fa fa-exclamation-triangle"></i> {{#str}}alerts, local_mrca{{/str}}
                 {{#has_alerts}}<span class="badge badge-danger ml-1">!</span>{{/has_alerts}}
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="mrca-tab-plugins" data-bs-toggle="tab" href="#mrca-pane-plugins" role="tab">
+            <a class="nav-link" id="mrca-tab-plugins" data-toggle="tab" href="#mrca-pane-plugins" role="tab">
                 <i class="fa fa-puzzle-piece"></i> {{#str}}plugin_risk_details, local_mrca{{/str}}
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="mrca-tab-whitelist" data-bs-toggle="tab" href="#mrca-pane-whitelist" role="tab">
+            <a class="nav-link" id="mrca-tab-whitelist" data-toggle="tab" href="#mrca-pane-whitelist" role="tab">
                 <i class="fa fa-list"></i> {{#str}}whitelist, local_mrca{{/str}}
             </a>
         </li>
@@ -378,8 +378,9 @@
                                     <td>
                                         <code>{{plugin}}</code>
                                         {{#has_pii_fields}}
-                                        <button class="btn btn-link btn-sm p-0 ml-1 mrca-toggle-pii" data-bs-target="#pii-{{id}}" title="{{#str}}detected_pii_fields, local_mrca{{/str}}">
+                                        <button class="btn btn-link btn-sm p-0 ml-1 mrca-toggle-pii" data-target="#pii-{{id}}" title="{{#str}}whitelist_tooltip, local_mrca, {{pii_count}}{{/str}}">
                                             <i class="fa fa-database text-warning"></i>
+                                            <span class="badge badge-warning" style="font-size: 0.65rem; vertical-align: super;">{{pii_count}}</span>
                                         </button>
                                         {{/has_pii_fields}}
                                     </td>
@@ -406,17 +407,28 @@
                                 </tr>
                                 {{#has_pii_fields}}
                                 <tr id="pii-{{id}}" class="mrca-pii-row" style="display: none;">
-                                    <td colspan="8" class="bg-light p-2">
-                                        <small class="text-muted d-block mb-1"><i class="fa fa-database"></i> {{#str}}detected_pii_fields, local_mrca{{/str}}:</small>
+                                    <td colspan="8" class="bg-light p-3">
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <div>
+                                                <i class="fa fa-database text-warning"></i>
+                                                <strong>{{#str}}detected_pii_fields, local_mrca{{/str}}:</strong>
+                                                <small class="text-muted ml-2">({{pii_count}} field{{#pii_count_plural}}s{{/pii_count_plural}})</small>
+                                            </div>
+                                            <button class="btn btn-warning btn-sm mrca-whitelist-all"
+                                                    data-plugin="{{plugin}}"
+                                                    data-rowid="{{id}}">
+                                                <i class="fa fa-check-circle"></i> {{#str}}whitelist_all_fields, local_mrca, {{pii_count}}{{/str}}
+                                            </button>
+                                        </div>
                                         {{#pii_fields}}
-                                        <div class="d-inline-flex align-items-center mr-3 mb-1 mrca-pii-field">
-                                            <code class="mr-1">{{table}}.{{field}}</code>
-                                            <button class="btn btn-outline-warning btn-sm py-0 px-1 mrca-whitelist-add"
+                                        <div class="d-inline-flex align-items-center mr-3 mb-2 mrca-pii-field">
+                                            <code class="mr-2" style="background: #fff; padding: 2px 6px; border: 1px solid #ddd; border-radius: 3px;">{{table}}.{{field}}</code>
+                                            <button class="btn btn-outline-success btn-sm py-0 px-2 mrca-whitelist-add"
                                                     data-component="{{component}}"
                                                     data-table="{{table}}"
                                                     data-field="{{field}}"
                                                     title="{{#str}}whitelist_this_field, local_mrca{{/str}}">
-                                                <i class="fa fa-check"></i>
+                                                <i class="fa fa-check-circle"></i>
                                             </button>
                                         </div>
                                         {{/pii_fields}}

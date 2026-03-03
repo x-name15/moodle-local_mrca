@@ -11,7 +11,7 @@
  */
 define(
     ['jquery'],
-    function ($) {
+    function($) {
 
         return {
             /**
@@ -22,7 +22,7 @@ define(
              * @param {string} scanUrl Base URL for actions.
              * @param {string} sesskey Session key.
              */
-            init: function (chartData, trendData, scanUrl, sesskey) {
+            init: function(chartData, trendData, scanUrl, sesskey) {
 
                 // ===== CHARTS =====
                 try {
@@ -45,7 +45,7 @@ define(
                                     responsive: true,
                                     maintainAspectRatio: false,
                                     plugins: {
-                                        legend: { position: 'bottom' }
+                                        legend: {position: 'bottom'}
                                     }
                                 }
                             });
@@ -77,11 +77,11 @@ define(
                                         y: {
                                             min: 0,
                                             max: 100,
-                                            title: { display: true, text: 'Risk Index' }
+                                            title: {display: true, text: 'Risk Index'}
                                         }
                                     },
                                     plugins: {
-                                        legend: { display: false }
+                                        legend: {display: false}
                                     }
                                 }
                             });
@@ -94,7 +94,7 @@ define(
 
                 // ===== PAGINATION (reusable) =====
                 // Excludes rows with .mrca-pii-row class from page count.
-                var paginateTable = function (tableId, pagerId, perPage) {
+                var paginateTable = function(tableId, pagerId, perPage) {
                     var $tbl = $(tableId);
                     var $dataRows = $tbl.find('tbody tr').not('.mrca-pii-row');
                     var $piiRows = $tbl.find('tbody tr.mrca-pii-row');
@@ -105,7 +105,7 @@ define(
                         return;
                     }
 
-                    var show = function (page) {
+                    var show = function(page) {
                         // Hide all data rows and PII sub-rows.
                         $dataRows.hide();
                         $piiRows.hide();
@@ -115,7 +115,7 @@ define(
                         render();
                     };
 
-                    var render = function () {
+                    var render = function() {
                         var $pg = $(pagerId);
                         $pg.empty();
 
@@ -140,7 +140,7 @@ define(
 
                     show(1);
 
-                    $(document).on('click', pagerId + ' a.page-link', function (e) {
+                    $(document).on('click', pagerId + ' a.page-link', function(e) {
                         e.preventDefault();
                         var page = parseInt($(this).data('page'), 10);
                         if (page >= 1 && page <= pages) {
@@ -156,9 +156,9 @@ define(
                 paginateTable('#mrca-dep-table', '#mrca-dep-pagination', 10);
 
                 // ===== PII FIELD TOGGLE =====
-                $(document).on('click', '.mrca-toggle-pii', function (e) {
+                $(document).on('click', '.mrca-toggle-pii', function(e) {
                     e.preventDefault();
-                    var target = $($(this).data('bs-target') || $(this).data('target'));
+                    var target = $($(this).data('target'));
                     target.toggle();
                     // Toggle icon.
                     var icon = $(this).find('i');
@@ -166,7 +166,7 @@ define(
                 });
 
                 // ===== WHITELIST ADD =====
-                $(document).on('click', '.mrca-whitelist-add', function () {
+                $(document).on('click', '.mrca-whitelist-add', function() {
                     var btn = $(this);
                     var comp = btn.data('component');
                     var tbl = btn.data('table');
@@ -178,25 +178,72 @@ define(
                         table: tbl,
                         field: fld,
                         sesskey: sesskey
-                    }).done(function (response) {
+                    }).done(function(response) {
                         var data = JSON.parse(response);
                         if (data.success) {
                             btn.find('i').removeClass('fa-spinner fa-spin').addClass('fa-check text-success');
-                            btn.closest('.mrca-pii-field').fadeOut(500, function () {
+                            btn.closest('.mrca-pii-field').fadeOut(500, function() {
                                 $(this).remove();
                             });
                         } else {
                             btn.prop('disabled', false).find('i').removeClass('fa-spinner fa-spin').addClass('fa-check');
                         }
-                    }).fail(function (xhr) {
+                    }).fail(function(xhr) {
                         // eslint-disable-next-line no-console
                         console.warn('MRCA: Whitelist add failed', xhr.status, xhr.responseText);
                         btn.prop('disabled', false).find('i').removeClass('fa-spinner fa-spin').addClass('fa-times text-danger');
                     });
                 });
 
+                // ===== WHITELIST ALL =====
+                $(document).on('click', '.mrca-whitelist-all', function() {
+                    var btn = $(this);
+                    var rowid = btn.data('rowid');
+                    var $row = $('#pii-' + rowid);
+                    var $fields = $row.find('.mrca-whitelist-add');
+
+                    if ($fields.length === 0) {
+                        return;
+                    }
+
+                    btn.prop('disabled', true).find('i').removeClass('fa-check-circle').addClass('fa-spinner fa-spin');
+
+                    var completed = 0;
+                    var total = $fields.length;
+
+                    $fields.each(function() {
+                        var $fieldBtn = $(this);
+                        var comp = $fieldBtn.data('component');
+                        var tbl = $fieldBtn.data('table');
+                        var fld = $fieldBtn.data('field');
+
+                        $fieldBtn.prop('disabled', true).find('i').removeClass('fa-check-circle').addClass('fa-spinner fa-spin');
+
+                        $.post(scanUrl, {
+                            action: 'whitelist_add',
+                            component: comp,
+                            table: tbl,
+                            field: fld,
+                            sesskey: sesskey
+                        }).done(function(response) {
+                            var data = JSON.parse(response);
+                            if (data.success) {
+                                $fieldBtn.find('i').removeClass('fa-spinner fa-spin').addClass('fa-check text-success');
+                                $fieldBtn.closest('.mrca-pii-field').fadeOut(300);
+                            }
+                        }).always(function() {
+                            completed++;
+                            if (completed === total) {
+                                setTimeout(function() {
+                                    $row.fadeOut(500);
+                                }, 600);
+                            }
+                        });
+                    });
+                });
+
                 // ===== WHITELIST REMOVE =====
-                $(document).on('click', '.mrca-whitelist-remove', function () {
+                $(document).on('click', '.mrca-whitelist-remove', function() {
                     var btn = $(this);
                     var id = btn.data('id');
                     btn.prop('disabled', true);
@@ -204,14 +251,14 @@ define(
                         action: 'whitelist_remove',
                         id: id,
                         sesskey: sesskey
-                    }).done(function (response) {
+                    }).done(function(response) {
                         var data = JSON.parse(response);
                         if (data.success) {
-                            btn.closest('.d-flex').fadeOut(300, function () {
+                            btn.closest('.d-flex').fadeOut(300, function() {
                                 $(this).remove();
                             });
                         }
-                    }).fail(function (xhr) {
+                    }).fail(function(xhr) {
                         // eslint-disable-next-line no-console
                         console.warn('MRCA: Whitelist remove failed', xhr.status, xhr.responseText);
                         btn.prop('disabled', false);
@@ -219,7 +266,7 @@ define(
                 });
 
                 // ===== SEND SINGLE REPORT =====
-                $(document).on('click', '.mrca-send-report', function () {
+                $(document).on('click', '.mrca-send-report', function() {
                     var btn = $(this);
                     var resultid = btn.data('resultid');
                     btn.prop('disabled', true).find('i').removeClass('fa-paper-plane').addClass('fa-spinner fa-spin');
@@ -227,7 +274,7 @@ define(
                         action: 'send_single_report',
                         resultid: resultid,
                         sesskey: sesskey
-                    }).done(function (response) {
+                    }).done(function(response) {
                         var data = JSON.parse(response);
                         btn.find('i').removeClass('fa-spinner fa-spin').addClass('fa-paper-plane');
                         if (data.success) {
@@ -237,7 +284,7 @@ define(
                             btn.find('i').addClass('text-danger');
                             btn.prop('disabled', false);
                         }
-                    }).fail(function (xhr) {
+                    }).fail(function(xhr) {
                         // eslint-disable-next-line no-console
                         console.warn('MRCA: Send report failed', xhr.status, xhr.responseText);
                         btn.find('i').removeClass('fa-spinner fa-spin').addClass('fa-paper-plane text-danger');
