@@ -4,6 +4,8 @@
 [![PHP](https://img.shields.io/badge/PHP-8.0%2B-blue)](https://php.net)
 [![License](https://img.shields.io/badge/License-GPL%20v3-green)](LICENSE)
 
+ # **Officially published on Moodle.org:** [local_mrca](https://moodle.org/plugins/local_mrca) 🎉
+
 ## Overview
 
 MRCA is a multi-layered risk analysis engine for Moodle™. It scans installed plugins for security risks, privacy compliance gaps, outdated dependencies, and permission misconfigurations — providing administrators with a unified **Site Risk Index** and actionable alerts.
