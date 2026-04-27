@@ -80,4 +80,4 @@ Full documentation in English and Spanish is available in the [`docs/`](docs/) d
 
 ## License
 
-MIT License. See [LICENSE](LICENSE).
+GNU License. See [LICENSE](LICENSE).
